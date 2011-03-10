@@ -12,7 +12,20 @@ def upload_file(request):
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
             uploaded_file = request.FILES['file']
-            form.save(uploaded_file)
+            chunk = request.REQUEST.get('chunk', '0')
+            chunks = request.REQUEST.get('chunks', '0')
+            name = request.REQUEST.get('name', '')
+
+            if not name:
+                name = uploaded_file.name
+
+            temp_file = '/tmp/insecure.tmp'
+            with open(temp_file, ('wb' if chunk == '0' else 'ab')) as f:
+                for content in uploaded_file.chunks():
+                    f.write(content)
+
+            if int(chunk) + 1 >= int(chunks):
+                form.save(temp_file, name)
 
             if request.is_ajax():
                 response = HttpResponse('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}', mimetype='text/plain; charset=UTF-8')
