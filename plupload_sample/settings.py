@@ -3,6 +3,9 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+import os
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -81,6 +84,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '%s/plupload_sample/templates' % PROJECT_ROOT
 )
 
 INSTALLED_APPS = (
@@ -89,8 +93,5 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'plupload_sample.upload',
 )

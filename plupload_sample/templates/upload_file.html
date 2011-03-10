@@ -1,0 +1,14 @@
+<head>
+</head>
+
+<body>
+
+<form enctype="multipart/form-data" action="{% url plupload_sample.upload.views.upload_file %}" method="post">{% csrf_token %}
+
+<div id="uploader">
+  {{form.file.errors}}{{form.file}}
+  <input type="submit" value="Upload" />
+</div>
+
+</form>
+</body>
